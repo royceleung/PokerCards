@@ -4,6 +4,7 @@
   "description": "FlashCard App for Salesforce",
   "main": "app.js",
   "scripts": {
+    "postinstall": "bower install",
     "start": "node server.js"
   },
   "dependencies": {
