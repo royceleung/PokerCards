@@ -1,0 +1,20 @@
+{
+  "name": "PokerCards",
+  "version": "0.0.0",
+  "description": "FlashCard App",
+  "main": "app.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.0",
+    "angular-route": "~1.4.8"
+  }
+}

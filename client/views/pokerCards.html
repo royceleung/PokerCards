@@ -1,0 +1,101 @@
+<div class="container pokerCard-page" ng-init="initCards()">
+  <div class="mainFlash">
+    <div class="flashTop">
+      <span class="highScore">High Score: {{highScore}}</span>
+      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">Play</button>
+      <div class="pokerCard-container">
+        <img ng-repeat="card in pokerHand" ng-src="{{card.pic}}">
+      </div>
+    </div>
+    <div class="flashCard-container">
+      <span>Question</span>
+      <div>{{currentFlashCard.question}}</div>
+    </div>
+    <div class="flashButtons">
+    <form class="form-inline" ng-submit="submitAnswer()">
+      <div class="form-group">
+        <label for="exampleInputName2">Answer</label>
+        <input type="text" class="form-control" id="pokerSolution" ng-model="pokerAnswer">
+      </div>
+      <input type="submit" class="btn btn-info"></input>
+    </form>
+    <div class="numCards" ng-show="gameCards.length">{{index+1}} of {{gameCards.length}}</span>
+    </div>
+    <div class="wrongAnswer" ng-show="wrongAnswer">Sorry, Incorrect
+    </div>
+  </div>
+
+  <!-- Modal initial -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Pick a deck to play with.</h4>
+        </div>
+        <div class="modal-body">
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-info" ng-repeat="(key, value) in data" ng-click="startGame(key)" data-dismiss="modal">{{key}}</button>
+          </div>
+        </div>
+        <hr>
+        <div class="modal-body instructions">
+          <h3>How To Play</h3>
+          <p>13 flashcards are picked randomly from the deck that you choose. For every question you get right, you will be awarded one poker card. At the end of answering every question, try to make the best 5-card hand!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of Modal -->
+
+    <!-- Modal Small -->
+  <div class="modal fade bs-example-modal-sm" id="failureResult" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          Sorry! You did not get enough questions correctly to make a 5-card hand.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="clearPokerData()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pokerSelection -->
+  <div class="modal fade bs-example-modal-lg" id="pokerSelection" tabindex="-1" role="dialog" aria-labelledby="pokerSelectionLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Congrats! You received {{pokerHand.length}} cards. Please choose 5 to make a hand.</h4>
+        </div>
+        <div class="modal-body pokerSelectionList">
+          <img ng-repeat="card in pokerHand track by $index" ng-src="{{card.pic}}" ng-click="selectCard($index, $event)">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="handChecker()" ng-disabled="fiveCardHand.length !== 5">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of Modal -->
+
+  <!-- Modal Small -->
+  <div class="modal fade bs-example-modal-sm" id="pokerResult" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        Congratulations! You have a {{currentPokerHand}}!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="clearPokerData()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

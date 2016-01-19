@@ -1,0 +1,110 @@
+<div class="container flashCard-page" ng-init="initCards(); data-toggle">
+    <div class="btn-group category-btn" role="group" aria-label="...">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDeck">Add New Deck of Cards</button>
+      <button type="button" class="btn btn-default" ng-repeat="(key, value) in data" ng-click="changeCategory(key)">{{key}}</button>
+    </div>
+     <!-- Modal -->
+      <div class="modal fade" id="addDeck" tabindex="-1" role="dialog" aria-labelledby="addDeckLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add new Deck</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="deckName">Name</label>
+                  <input type="text" class="form-control" ng-model="newCategory" placeholder="What is the name of this new deck of cards?" required>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="addNewCategory()" data-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of Modal -->
+
+  <div class="mainFlash">
+    <div class="flashCard-container" ng-click="flipped=!flipped">
+      <span ng-show="flipped">Question</span>
+      <span ng-show="!flipped" class="answer">Answer</span>
+      <div ng-show="flipped">{{currentFlashCard.question}}</div>
+      <div ng-show="!flipped">{{currentFlashCard.answer}}</div>
+    </div>
+    <div class="flashButtons">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Cards to "{{category}}"</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add new Flash Card</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="question">Question</label>
+                  <input type="text" class="form-control" ng-model="question" placeholder="Type Question Here" required>
+                </div>
+                <div class="form-group">
+                  <label for="answer">Answer</label>
+                  <input type="text" class="form-control" ng-model="answer" placeholder="Type Answer Here" required>
+                </div>
+              </form>
+            </div>
+            <div class="modal-success" ng-bind="success">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="success=''">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="saveCard()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of Modal -->
+
+      <button type="button" ng-click="changeFlashCard(0)"><i class="fa fa-fast-backward"></i></button>
+      <button type="button" ng-click="changeFlashCard(index-1)"><i class="fa fa-step-backward"></i></button>
+      <span class="numCards" ng-show="data[category].length">{{index+1}} of {{data[category].length}}</span>
+      <span class="numCards" ng-show="!data[category].length"> No Cards Yet></span>
+      <button type="button" ng-click="changeFlashCard(index+1)"><i class="fa fa-step-forward"></i></button>
+      <button type="button"  ng-click="changeFlashCard(data[category].length-1)"><i class="fa fa-fast-forward"></i></button>
+      <button type="button" class="btn btn-warning" ng-click="deleteCurrentCard()">Delete Current Card</button>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editCard">Edit Current Card</button>
+       <!-- Modal -->
+      <div class="modal fade" id="editCard" tabindex="-1" role="dialog" aria-labelledby="editCardLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Edit Mode</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="question">Question</label>
+                  <input type="text" class="form-control" ng-model="editQuestion" placeholder="{{data[category][index].question}}">
+                </div>
+                <div class="form-group">
+                  <label for="answer">Answer</label>
+                  <input type="text" class="form-control" ng-model="editAnswer" placeholder="{{data[category][index].answer}}">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="editCurrentCard()" data-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of Modal -->
+    </div>
+  </div>
+</div>
