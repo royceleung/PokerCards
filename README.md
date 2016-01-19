@@ -8,8 +8,8 @@ Poker Flashcards is a web application that gives flashcards a whole new element.
 - Node/Express
 
 ## Installation
-- `npm install'
-- `npm start'
+- `npm install`
+- `npm start`
 - Navigate to http://localhost:3000 to start using the application.
 
 ## Future Features
