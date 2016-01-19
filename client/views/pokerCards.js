@@ -112,7 +112,7 @@ angular.module('myApp.pokerCards', ['ngRoute'])
               break;
     }
     if(isFlush()){
-         if(resultString){
+         if(resultString === "Straight"){
               resultString = "Straight Flush";     
          }
          else{
@@ -149,41 +149,41 @@ angular.module('myApp.pokerCards', ['ngRoute'])
     }
   }
 
-  var isFlush = function(){
+  var isFlush = function() {
     for(var i = 0; i < 4; i ++){
-      if(suitsArray[i] != suitsArray[i+1]){
+      if(suitsArray[i] != suitsArray[i+1]) {
         return false;
       }
     }
     return true;
   }
 
-  var isStraight = function(){
+  var isStraight = function() {
     console.log(valuesArray.sort())
     if(arraysEqual(valuesArray.sort(), [0, 10, 11, 12, 9])) {
       return true;
     }
     var lowest = getLowest();
-    for(var i = 1; i < 5; i++){
-      if(occurrencesOf(lowest + i) != 1){
+    for(var i = 1; i < 5; i++) {
+      if(occurrencesOf(lowest + i) != 1) {
         return false
       }     
     }
     return true;
   }
 
-  var getLowest = function(){
+  var getLowest = function() {
     var min = 12;
-    for(var i = 0; i < valuesArray.length; i++){
+    for(var i = 0; i < valuesArray.length; i++) {
       min = Math.min(min, valuesArray[i]);     
     }
     return min;     
   } 
 
-  var duplicateCards = function(){
+  var duplicateCards = function() {
     var occurrencesFound = []; 
     var result = "";
-    for(var i = 0; i < valuesArray.length; i++){
+    for(var i = 0; i < valuesArray.length; i++) {
       var occurrences = occurrencesOf(valuesArray[i]);
       if(occurrences > 1 && occurrencesFound.indexOf(valuesArray[i]) == -1){
         result += occurrences; 
@@ -193,16 +193,16 @@ angular.module('myApp.pokerCards', ['ngRoute'])
     return result;
   }
 
-  var occurrencesOf = function(n){
+  var occurrencesOf = function(n) {
     var count = 0;
     var index = 0;   
     do{          
       index = valuesArray.indexOf(n, index) + 1;  
-      if(index == 0){
+      if(index == 0) {
         break;
       }
       else{
-        count ++;
+        count++;
       }
     } while(index < valuesArray.length);
     return count;
