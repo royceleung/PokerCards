@@ -20,6 +20,7 @@ angular.module('myApp.pokerCards', ['ngRoute'])
   $scope.fiveCardHand = [];
   var valuesArray = [];
   var suitsArray = [];
+  $scope.gameInProgress = false;
 
   $scope.initCards = function() {
     $scope.data = angular.copy(dataFactory.getData());
@@ -31,6 +32,8 @@ angular.module('myApp.pokerCards', ['ngRoute'])
   }
 
   $scope.startGame = function(category) {
+    $scope.clearPokerData();
+    $scope.gameInProgress = true;
     $scope.gameCards = shuffle($scope.data[category]).slice(0,13);
     setCurrentCard();
   }
@@ -54,7 +57,6 @@ angular.module('myApp.pokerCards', ['ngRoute'])
       $scope.wrongAnswer = false;
       $scope.pokerAnswer = "";
     } else {
-      // $scope.pokerHand.push($scope.cardData[cardIndex++]);
       $scope.wrongAnswer = true;
       $scope.pokerAnswer = "";
     }
@@ -62,6 +64,7 @@ angular.module('myApp.pokerCards', ['ngRoute'])
       $scope.index++;
       setCurrentCard();   
     } else {
+      $scope.gameInProgress = false;
       $scope.currentCard = "";
       if($scope.pokerHand.length > 4) {
         $('#pokerSelection').modal('show');
@@ -79,7 +82,6 @@ angular.module('myApp.pokerCards', ['ngRoute'])
         $(event.target).removeClass('selected');
         var removeIndex = $scope.fiveCardHand.indexOf($scope.pokerHand[card]);
         $scope.fiveCardHand.splice(removeIndex, 1);
-        console.log($scope.fiveCardHand.length);
       }
   }
 
@@ -127,7 +129,7 @@ angular.module('myApp.pokerCards', ['ngRoute'])
     $('#pokerResult').modal('show');
   }
 
-  // Helper Function //
+  // Helper Functions //
 
   var checkHighScore = function() {
     if(!$scope.highScore) {
@@ -157,6 +159,10 @@ angular.module('myApp.pokerCards', ['ngRoute'])
   }
 
   var isStraight = function(){
+    console.log(valuesArray.sort())
+    if(arraysEqual(valuesArray.sort(), [0, 10, 11, 12, 9])) {
+      return true;
+    }
     var lowest = getLowest();
     for(var i = 1; i < 5; i++){
       if(occurrencesOf(lowest + i) != 1){
@@ -201,6 +207,16 @@ angular.module('myApp.pokerCards', ['ngRoute'])
     } while(index < valuesArray.length);
     return count;
   }  
+
+  var arraysEqual = function(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+    return true;
+  }
 
   var setCurrentCard = function() {
     $scope.currentFlashCard = $scope.gameCards[$scope.index];

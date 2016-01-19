@@ -12,12 +12,12 @@
       <div>{{currentFlashCard.question}}</div>
     </div>
     <div class="flashButtons">
-    <form class="form-inline" ng-submit="submitAnswer()">
+    <form class="form-inline" ng-submit="submitAnswer()" ng-disabled="!gameInProgress">
       <div class="form-group">
         <label for="exampleInputName2">Answer</label>
         <input type="text" class="form-control" id="pokerSolution" ng-model="pokerAnswer">
       </div>
-      <input type="submit" class="btn btn-info"></input>
+      <input type="submit" class="btn btn-info" ng-disabled="!gameInProgress"></input>
     </form>
     <div class="numCards" ng-show="gameCards.length">{{index+1}} of {{gameCards.length}}</span>
     </div>
